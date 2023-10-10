@@ -3,13 +3,32 @@
 
 DoubleLinkedList::DoubleLinkedList()
 {
-	m_Node = new Node;
-	m_Head = m_Node;
-	m_Tail = m_Node;
+	m_Node = new DoubleLinkedList::Node;
+	m_Node->scoredata = new ScoreData;
+	m_Node->next = new DoubleLinkedList::Node;
+	m_Node->prev = new DoubleLinkedList::Node;
+	m_Node->next->scoredata = new ScoreData;
+	m_Node->prev->scoredata = new ScoreData;
+	m_ConstIterator = new DoubleLinkedList::ConstIterator;
+	m_Iterator = new DoubleLinkedList::Iterator;
 
-	m_Node->scoredata.Score = 00000;
-	m_Node->scoredata.UserName = "nothing";
-	m_Node->prev = m_Node;//暫定的な処置、本番では削除する
+	m_HeadNode = m_Node;
+	m_HeadNode->next = m_Node->next;
+	m_HeadNode->prev = m_Node->prev;
+	m_TailNode = m_Node;
+	m_TailNode->next = m_Node->next;
+	m_TailNode->prev = m_Node->prev;
+
+	ScoreData_Init(m_Node->scoredata);
+	ScoreData_Init(m_Node->next->scoredata);
+	ScoreData_Init(m_Node->prev->scoredata);
+	
+	m_ConstIterator->operator=(m_Node);
+	m_Iterator->operator=(m_ConstIterator);
+	m_HeadConstIterator = m_Iterator;
+	m_HeadIterator = m_Iterator;
+	m_TailIterator = m_Iterator;
+	m_TailConstIterator = m_Iterator;
 }
 
 DoubleLinkedList::~DoubleLinkedList()
@@ -17,69 +36,99 @@ DoubleLinkedList::~DoubleLinkedList()
 	delete m_Node;
 }
 
+//10/10からはここの作業から
 int DoubleLinkedList::Count_Data()const
 {
-	return 0;
+	ScoreData* tempScore;
+	tempScore=Set_ScoreData(0,"dummy");
+	int dataCount = 0;
+	DoubleLinkedList::ConstIterator * citr;
+	citr = Get_TailConstIterator();
+	DoubleLinkedList::Node* node;
+	node = citr->operator*();
+
+	while (node->scoredata->Score)
+	{
+		dataCount++;
+		node = node->prev;
+	}
+
+
+
+	return dataCount;
 }
 
-void DoubleLinkedList::Push_Back(ConstIterator* _iterator,ScoreData _scoredata)
+void DoubleLinkedList::Push_Back(ConstIterator* _iterator,ScoreData* _scoredata)
 {
-	//DoubleLinkedList::Iterator* iterator =_iterator;
-	//Node* node = _iterator->operator*;
-	//node->scoredata = _scoredata;
+	if (_iterator->operator*())
+	{
+		m_Node = _iterator->operator*();
+		m_Node->scoredata = _scoredata;
+	}
+	if (m_Node->next->scoredata)
+	{
+		//現在位置の前の次を現在位置とする
+		m_Node->prev->next = m_Node;
+		//現在位置を前の位置にする
+		m_Node = m_Node->prev;
+		//前の位置をnewする
+		m_Node->prev = new DoubleLinkedList::Node;
+	}
+	//増やす次の要素が先頭要素だった場合に先頭を更新する
+	if (m_Node->next == Get_HeadIterator()->operator*())
+	{
+		m_HeadNode = m_Node;
+		m_HeadConstIterator->operator=(m_HeadNode);
+		m_HeadIterator->operator = (m_HeadConstIterator);
+	}
+		_iterator->operator=(m_Node);
+	
+		m_TailNode = m_HeadNode->next;
+		m_TailConstIterator->operator=(m_TailNode);
+		m_TailIterator->operator=(m_TailConstIterator);
+
 }
 
 bool DoubleLinkedList::Delete_Data(ConstIterator* _iterator)
 {
-	return false;
-}
 
-DoubleLinkedList::Iterator * DoubleLinkedList::Get_Iterator()
-{
-	return nullptr;
+	DoubleLinkedList::Node* tempNode = _iterator->operator*();
+	tempNode->prev->next = tempNode->next;
+	tempNode->next->prev = tempNode->prev;
+	_iterator->operator=(tempNode->next);
+	delete tempNode;
+	return true;
 }
 
 DoubleLinkedList::Iterator* DoubleLinkedList::Get_HeadIterator()
 {
-	return nullptr;
+	return m_HeadIterator;
 }
 
-DoubleLinkedList::ConstIterator* DoubleLinkedList::Get_HeadConstIterator()
+DoubleLinkedList::ConstIterator* DoubleLinkedList::Get_HeadConstIterator()const
 {
-	return &ConstIterator();
+	return m_HeadConstIterator;
 }
 
 DoubleLinkedList::Iterator* DoubleLinkedList::Get_TailIterator()
 {
-	return nullptr;
+	return m_TailIterator;
 }
 
-DoubleLinkedList::ConstIterator* DoubleLinkedList::Get_TailConstIterator()
+DoubleLinkedList::ConstIterator* DoubleLinkedList::Get_TailConstIterator()const
 {
-	return &ConstIterator();
-}
-
-Node * DoubleLinkedList::Get_Node()
-{
-	//Node* node = new Node;
-	//node->prev = new Node;
-		return m_Node;
-}
-
-Node * DoubleLinkedList::Get_HeadNode()
-{
-	return m_Head;
-}
-
-Node * DoubleLinkedList::Get_TailNode()
-{
-	return m_Tail;
+	return m_TailConstIterator;
 }
 
 
-Node * DoubleLinkedList::Iterator::operator*()
+DoubleLinkedList::Node * DoubleLinkedList::Iterator::operator*()
 {
-	return nullptr;
+	return mp_Node;
+}
+
+void DoubleLinkedList::Iterator::operator=(ConstIterator *_constiterator)
+{
+	this->mp_Node = _constiterator->operator*();
 }
 
 DoubleLinkedList::ConstIterator::ConstIterator()
@@ -88,36 +137,70 @@ DoubleLinkedList::ConstIterator::ConstIterator()
 
 DoubleLinkedList::ConstIterator::~ConstIterator()
 {
+	
 }
 
-void DoubleLinkedList::ConstIterator::operator--()
+DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator--()
+{
+	if (mp_Node->prev==nullptr)
+	{
+		mp_Node->prev->next = mp_Node;
+		mp_Node = mp_Node->prev;
+	}
+	if (!&mp_Node)
+	{
+		mp_Node = new DoubleLinkedList::Node;
+		mp_Node->scoredata->Score = 0;
+		mp_Node->scoredata->UserName = "dummy";
+	}
+	return this;
+
+}
+
+void DoubleLinkedList::ConstIterator::operator--(int)
 {
 }
 
-void DoubleLinkedList::ConstIterator::operator++()
+DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator++()
 {
+	mp_Node = mp_Node->next;
+	if (!&mp_Node->next->scoredata)
+	{
+		mp_Node->next->scoredata->Score = 0;
+		mp_Node->next->scoredata->UserName = "dummy";
+	}
+	return this;
 }
 
-Node * const DoubleLinkedList::ConstIterator::operator*()
+void DoubleLinkedList::ConstIterator::operator++(int)
 {
-	return nullptr;
+	mp_Node = mp_Node->next;
+}
+
+DoubleLinkedList::Node * DoubleLinkedList::ConstIterator::operator*()const
+{
+	if (mp_Node!=nullptr)
+		return mp_Node;
+	else
+		return nullptr;
 }
 
 DoubleLinkedList::ConstIterator::ConstIterator(const ConstIterator & constiterator)
 {
 }
 
-DoubleLinkedList::ConstIterator DoubleLinkedList::ConstIterator::operator=(ConstIterator)
+DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator=(DoubleLinkedList::Node* _node)
 {
-	return ConstIterator();
+	mp_Node = _node;
+	return this;
 }
 
-bool DoubleLinkedList::ConstIterator::operator==(ConstIterator)
+bool DoubleLinkedList::ConstIterator::operator==(ConstIterator* _constiterator)
 {
 	return false;
 }
 
-bool DoubleLinkedList::ConstIterator::operator!=(ConstIterator)
+bool DoubleLinkedList::ConstIterator::operator!=(ConstIterator* _constiterator)
 {
 	return false;
 }
@@ -141,13 +224,29 @@ bool DoubleLinkedList::ConstIterator::operator!=(ConstIterator)
 //	return false;
 //}
 
-bool Check_Data(ScoreData _scoredata, ScoreData _checker)
+void ScoreData_Init(ScoreData * _scoredata)
 {
+	ScoreData* temp;
+	temp = Set_ScoreData(0, "dummy");
+	*_scoredata = *temp;
+}
+
+bool Check_Data(DoubleLinkedList::ConstIterator* _constiterator, ScoreData* _checker)
+{
+	if (_constiterator->operator*()!=nullptr)
+	{
+		if (_constiterator->operator*()->scoredata == _checker)
+			return true;
+	}
+	else
+		return false;
 	return false;
 }
 
-void Set_ScoreData(ScoreData _scoredata, int _score, const char * _username)
+ScoreData* Set_ScoreData(int _score, const char * _username)
 {
-	_scoredata.Score = _score;
-	_scoredata.UserName = _username;
+	ScoreData* temp = new ScoreData;
+	temp->Score = _score;
+	temp->UserName = _username;
+	return temp;
 }
