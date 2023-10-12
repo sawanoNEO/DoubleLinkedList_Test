@@ -15,6 +15,7 @@ public:
 		Node* prev;				 //前のノードへのポインタ
 		Node* next;				 //次のノードへのポインタ
 		ScoreData* scoredata;	 //成績データ　
+		Node() :prev(nullptr), next(nullptr), scoredata(nullptr) { } //コンストラクタ
 	};
 	class ConstIterator      //コンストイテレータクラス(DoubleLinkedListのインナークラス)
 	{
@@ -24,32 +25,31 @@ public:
 		ConstIterator();
 		~ConstIterator();
 
-		ConstIterator* operator--();									   //リストの先頭に向かって一つ進める(前置)
+		ConstIterator& operator--();									   //リストの先頭に向かって一つ進める(前置)
 		void operator--(int);								   //リストの先頭に向かって一つ進める(後置)
-		ConstIterator* operator++();									   //リストの末尾に向かって一つ進める(前置)
+		ConstIterator& operator++();									   //リストの末尾に向かって一つ進める(前置)
 		void operator++(int);								   //リストの末尾に向かって一つ進める(後置)
 		
-		Node* operator* ()const;							   //イテレータの指す要素を取得する(const)
+		Node& operator* ()const;							   //イテレータの指す要素を取得する(const)
 		ConstIterator(const ConstIterator& constiterator);	   //コピーコンストラクタ
 		ConstIterator* operator= (Node* _node);			   //代入を行う
 		bool operator==(ConstIterator* _constiterator);						   //同一か比較する
 		bool operator!=(ConstIterator* _constiterator);						   //異なるか比較する
-
 
 	};
 
 	class Iterator : public ConstIterator   //イテレータクラス(DoubleLinkedListのインナークラス)
 	{
 	public:
-		Node* operator*();            //イテレータの指す要素を取得する(非const)
-		void operator=(ConstIterator*); //コンストイテレータノードをイテレータに入れる
+        Node* operator*();            //イテレータの指す要素を取得する(非const)
+		void operator=(Node*); //コンストイテレータノードをイテレータに入れる
 	};
 
 	DoubleLinkedList();
 	~DoubleLinkedList();
     int Count_Data()const;				    //データ数の取得
-	void Push_Back(ConstIterator* _iterator,ScoreData* _scoredata);				//データの挿入(イテレータ)
-	bool Delete_Data(ConstIterator* _iterator);	//データの削除(イテレータ)正常に削除出来たならtrueを返す
+	void Push_Back(ConstIterator& _iterator,ScoreData* _scoredata);				//データの挿入(イテレータ)
+	bool Delete_Data(ConstIterator& _iterator);	//データの削除(イテレータ)正常に削除出来たならtrueを返す
 
 	Iterator* Get_HeadIterator();			//先頭イテレータの取得
 	ConstIterator* Get_HeadConstIterator()const;	//先頭コンストイテレータの取得
@@ -66,7 +66,7 @@ private:
 	ConstIterator* m_HeadConstIterator;     //先頭要素を表すコンストイテレータ
 	ConstIterator* m_TailConstIterator;     //末尾要素を表すコンストイテレータ
 	ConstIterator* m_ConstIterator;			//コンストイテレータ
-
+	int data_Count;
 };
 	
 void ScoreData_Init(ScoreData* _scoredata);
