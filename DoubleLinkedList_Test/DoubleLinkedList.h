@@ -31,7 +31,7 @@ public:
 		ConstIterator& operator++();									   //リストの末尾に向かって一つ進める(前置)
 		void operator++(int);								   //リストの末尾に向かって一つ進める(後置)
 		
-		Node* operator* ()const;							   //イテレータの指す要素を取得する(const)
+		const Node* operator* ()const;						   //イテレータの指す要素を取得する(const)
 		ConstIterator(const ConstIterator& constiterator);	   //コピーコンストラクタ
 		ConstIterator* operator= (Node* _node);			   //代入を行う
 		bool operator==(ConstIterator* _constiterator);						   //同一か比較する
