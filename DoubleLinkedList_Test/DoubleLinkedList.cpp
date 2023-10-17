@@ -15,21 +15,22 @@ DoubleLinkedList::DoubleLinkedList()
 	m_TailNode = new DoubleLinkedList::Node;
 
 	m_Node->scoredata = new ScoreData;
-	m_Node->next = new DoubleLinkedList::Node;
+	//m_Node->next = new DoubleLinkedList::Node;
 	m_Node->prev = new DoubleLinkedList::Node;
-	m_Node->next->scoredata = new ScoreData;
+	//m_Node->next->scoredata = new ScoreData;
 	m_Node->prev->scoredata = new ScoreData;
 	
 	m_Node->prev->next = m_Node;
-	m_Node->next->prev = m_Node;
+	//m_Node->next->prev = m_Node;
 	
 	//各ノードの初期化
 	m_HeadNode = m_Node;
-	m_HeadNode->next = m_Node->next;
+	//m_HeadNode->next = m_Node->next;
 	m_HeadNode->prev = m_Node->prev;
 	m_TailNode = m_Node;
-	m_TailNode->next = m_Node->next;
-	m_TailNode->prev = m_Node->prev;
+	//m_TailNode = m_Node->next;
+	////m_TailNode->next = m_Node->next;
+	//m_TailNode->prev = m_Node;
 
 	//ダミーデータをスコアに入れる
 	//ScoreData_Init(m_Node->scoredata);
@@ -57,7 +58,7 @@ void DoubleLinkedList::Push_Back(DoubleLinkedList::ConstIterator* _iterator,Scor
 	
 	m_Node = m_HeadNode;
 
-	while (m_Node != m_TailNode->next)
+	while (m_Node != m_TailNode->next||m_TailNode==*(*_iterator))
 	{
 		if(m_Node==*(*_iterator))
 		{
@@ -67,7 +68,7 @@ void DoubleLinkedList::Push_Back(DoubleLinkedList::ConstIterator* _iterator,Scor
 			m_Node->prev->next = tempNode;
 			m_Node->prev = tempNode;
 
-			if (m_Node == m_HeadNode)
+			if (m_Node == m_HeadNode||data_Count==0)
 			{
 				m_HeadNode = m_Node->prev;
 			}
@@ -222,15 +223,14 @@ DoubleLinkedList::Iterator* DoubleLinkedList::Get_HeadIterator()
 
 DoubleLinkedList::ConstIterator* DoubleLinkedList::Get_HeadConstIterator()const
 {
-	DoubleLinkedList::ConstIterator* tempConstIterator = new DoubleLinkedList::ConstIterator;
-	(*tempConstIterator) = m_HeadNode;
+	DoubleLinkedList::ConstIterator* tempConstIterator = new DoubleLinkedList::ConstIterator(m_HeadNode);
 	return tempConstIterator;
 
 }
 
 DoubleLinkedList::Iterator* DoubleLinkedList::Get_TailIterator()
 {
-	DoubleLinkedList::Iterator* tempIterator = new DoubleLinkedList::Iterator;
+	DoubleLinkedList::Iterator* tempIterator = new DoubleLinkedList::Iterator();
 	DoubleLinkedList::Node* tempNode = *(*tempIterator);
 	tempNode = m_TailNode;
 	(*tempIterator) = tempNode;
@@ -268,6 +268,11 @@ DoubleLinkedList::ConstIterator::ConstIterator()
 	mp_Node = nullptr;
 }
 
+DoubleLinkedList::ConstIterator::ConstIterator(Node *_node)
+{
+	mp_Node = _node;
+}
+
 DoubleLinkedList::ConstIterator::~ConstIterator()
 {
 	
@@ -275,42 +280,38 @@ DoubleLinkedList::ConstIterator::~ConstIterator()
 
 DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator--()
 {
-	if(mp_Node->prev)
-	mp_Node = mp_Node->prev;
-
+	if (mp_Node)
+	{
+		if (mp_Node->prev)
+			mp_Node = mp_Node->prev;
+	}
 	return *this;
 }
 
-void DoubleLinkedList::ConstIterator::operator--(int)
+DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator--(int)
 {
+	DoubleLinkedList::ConstIterator* temp = new DoubleLinkedList::ConstIterator;
+	*temp = *this;
+	--(*this);
+	return temp;
 }
 
 DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator++()
 {
-	//ScoreData* tempData=new ScoreData;
-	//ScoreData_Init(tempData);
-
-	////データの移行
-	//mp_Node->next->prev = mp_Node;
-	//mp_Node = mp_Node->next;
-
-	////移行後のデータの次の要素のデータが初期化されていなかったら初期化する
-	//if (!mp_Node->next)
-	//{
-	//	mp_Node->next=new DoubleLinkedList::Node;
-	//	mp_Node->next->scoredata = new ScoreData;
-	//	mp_Node->next->scoredata->Score = 0;
-	//	mp_Node->next->scoredata->UserName = "dummy";
-	//}
-	//delete tempData;
-	if(mp_Node->next)
-	mp_Node = mp_Node->next;
+	if (mp_Node)
+	{
+		if (mp_Node->next)
+			mp_Node = mp_Node->next;
+	}
 	return *this;
 }
 
-void DoubleLinkedList::ConstIterator::operator++(int)
+DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator++(int)
 {
-	mp_Node = mp_Node->next;
+	DoubleLinkedList::ConstIterator* temp = new DoubleLinkedList::ConstIterator;
+	*temp = *this;
+	++(*this);
+	return temp;
 }
 
 const DoubleLinkedList::Node* DoubleLinkedList::ConstIterator::operator*()const
@@ -328,21 +329,30 @@ const DoubleLinkedList::Node* DoubleLinkedList::ConstIterator::operator*()const
 
 DoubleLinkedList::ConstIterator::ConstIterator(const ConstIterator & constiterator)
 {
+	this->mp_Node = constiterator.mp_Node;
 }
 
-DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator=(DoubleLinkedList::Node* _node)
+DoubleLinkedList::ConstIterator* DoubleLinkedList::ConstIterator::operator=(const DoubleLinkedList::ConstIterator& _constiterator)
 {
-	mp_Node = _node;
+	mp_Node = _constiterator.mp_Node;
 	return this;
 }
 
-bool DoubleLinkedList::ConstIterator::operator==(ConstIterator* _constiterator)
+bool DoubleLinkedList::ConstIterator::operator==(const ConstIterator* _constiterator)
 {
+	if (mp_Node == *(*_constiterator))
+	{
+		return true;
+	}
 	return false;
 }
 
-bool DoubleLinkedList::ConstIterator::operator!=(ConstIterator* _constiterator)
+bool DoubleLinkedList::ConstIterator::operator!=(const ConstIterator* _constiterator)
 {
+	if (mp_Node != *(*_constiterator))
+	{
+		return true;
+	}
 	return false;
 }
 

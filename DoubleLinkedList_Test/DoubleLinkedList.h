@@ -24,18 +24,19 @@ public:
 		Node* mp_Node;
 	public:
 		ConstIterator();
+		ConstIterator(Node* _node);//参照を渡された時のコンストラクタ
 		~ConstIterator();
 
 		ConstIterator& operator--();									   //リストの先頭に向かって一つ進める(前置)
-		void operator--(int);								   //リストの先頭に向かって一つ進める(後置)
+		ConstIterator* operator--(int);								   //リストの先頭に向かって一つ進める(後置)
 		ConstIterator& operator++();									   //リストの末尾に向かって一つ進める(前置)
-		void operator++(int);								   //リストの末尾に向かって一つ進める(後置)
+		ConstIterator* operator++(int);								   //リストの末尾に向かって一つ進める(後置)
 		
 		const Node* operator* ()const;						   //イテレータの指す要素を取得する(const)
-		ConstIterator(const ConstIterator& constiterator);	   //コピーコンストラクタ
-		ConstIterator* operator= (Node* _node);			   //代入を行う
-		bool operator==(ConstIterator* _constiterator);						   //同一か比較する
-		bool operator!=(ConstIterator* _constiterator);						   //異なるか比較する
+		ConstIterator(const ConstIterator& _constiterator);	   //コピーコンストラクタ
+		ConstIterator* operator= (const ConstIterator& _constiterator);			   //代入を行う
+		bool operator==(const ConstIterator* _constiterator);						   //同一か比較する
+		bool operator!=(const ConstIterator* _constiterator);						   //異なるか比較する
 
 	};
 
