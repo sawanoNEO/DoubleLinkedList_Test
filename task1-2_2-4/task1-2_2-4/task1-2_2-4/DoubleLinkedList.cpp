@@ -1,5 +1,4 @@
 #include "DoubleLinkedList.h"
-#include "pch.h"
 
 DoubleLinkedList::DoubleLinkedList()
 {
