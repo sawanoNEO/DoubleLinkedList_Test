@@ -426,12 +426,12 @@ TEST(List, ID_19) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData* testScore; 
-	testScore = Set_ScoreData(0, "test");
 
 	//複数の要素にデータを代入
 	*testIterator = *testList.Get_HeadIterator();
 	for (int i = 0; i < 10; i++)
 	{
+	 testScore = Set_ScoreData(i, "test");
 	 testList.Push_Back(testIterator, testScore);
 	}
 
