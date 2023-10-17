@@ -59,5 +59,6 @@ int main(void)
 		cout << node->scoredata->Score << node->scoredata->UserName << endl;
 	}
 
+	cin.get();
 	return 0;
 }
