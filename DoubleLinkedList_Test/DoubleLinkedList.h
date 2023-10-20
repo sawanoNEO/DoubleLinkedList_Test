@@ -55,7 +55,6 @@ public:
 		Iterator();
 		explicit Iterator(Node* _node);
         ScoreData* operator*();            //イテレータの指す要素を取得する(非const)
-		//void operator=(Node*);        //ノードを代入する
 	};
 
 	DoubleLinkedList();

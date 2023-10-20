@@ -7,17 +7,11 @@ DoubleLinkedList::DoubleLinkedList()
 	m_Node = new DoubleLinkedList::Node;
 
 	m_HeadNode = new DoubleLinkedList::Node;
-	//m_HeadNode->scoredata = new ScoreData;
-	m_HeadNode->next = new DoubleLinkedList::Node;	   //‚±‚Ì•Ó‚¢‚é‚Ì‚©‰ö‚µ‚¢B—vŠm”F
-	m_HeadNode->prev = new DoubleLinkedList::Node;	   //‚±‚Ì•Ó‚¢‚é‚Ì‚©‰ö‚µ‚¢B—vŠm”F
-	//m_HeadNode->next->scoredata = new ScoreData;
-	//m_HeadNode->prev->scoredata = new ScoreData;
+	m_HeadNode->next = new DoubleLinkedList::Node;
+	m_HeadNode->prev = new DoubleLinkedList::Node;
 	m_TailNode = new DoubleLinkedList::Node;
 
-	//m_Node->scoredata = new ScoreData;
 	m_Node->prev = new DoubleLinkedList::Node;
-	//m_Node->prev->scoredata = new ScoreData;
-	
 	m_Node->prev->next = m_Node;
 	
 	//Šeƒm[ƒh‚Ì‰Šú‰»
@@ -69,32 +63,6 @@ bool DoubleLinkedList::Push_Back(DoubleLinkedList::ConstIterator& _iterator,Scor
 	data_Count++;
 
 	return true;
-	//DoubleLinkedList::Node* tempNode = new DoubleLinkedList::Node;
-	//tempNode->scoredata = _scoredata;
-	//
-	//m_Node = m_HeadNode;
-
-	//while (m_Node != m_TailNode->next||m_TailNode==*(*_iterator))//æ“ª‚©‚ç––”ö‚Ü‚ÅÆ‡‚ğŒJ‚è•Ô‚·
-	//{
-	//	if(m_Node==*(*_iterator))
-	//	{
-	//		//ƒm[ƒh‚Ì‘}“üˆ—
-	//		tempNode->next = m_Node;
-	//		tempNode->prev = m_Node->prev;
-	//		m_Node->prev->next = tempNode;
-	//		m_Node->prev = tempNode;
-
-	//		if (m_Node == m_HeadNode||data_Count==0)//æ“ª—v‘f‚ÌXV
-	//		{
-	//			m_HeadNode = m_Node->prev;
-	//		}
-
-	//		data_Count++;
-	//		return;
-	//	}
-	//	m_Node = m_Node->next;
-	//}
-
 }
 
 bool DoubleLinkedList::Delete(ConstIterator& _iterator)
@@ -122,60 +90,12 @@ bool DoubleLinkedList::Delete(ConstIterator& _iterator)
 
 	data_Count--;
 	return true;
-
-	//m_Node = m_HeadNode;
-	//while (m_Node != m_TailNode->next)
-	//{
-	//	if (m_Node == *_iterator)//*_iterator‚ª—LŒø‚ÈQÆ‚Å‚ ‚ê‚Î’Ê‚é
-	//	{
-	//		//w’è‚³‚ê‚½ƒCƒeƒŒ[ƒ^‚Ìƒf[ƒ^‚ªƒ_ƒ~[‚Å‚ ‚ê‚Îˆ—‚ğ”²‚¯o‚·
-	//		ScoreData* tempScore = new ScoreData;
-	//		if (m_Node->scoredata->Score == tempScore->Score&&
-	//			m_Node->scoredata->UserName == tempScore->UserName)
-	//		{
-	//			delete tempScore;
-	//			return false;
-	//		}
-	//		//w’è‚³‚ê‚½ƒCƒeƒŒ[ƒ^‚ªæ“ª‚Ü‚½‚Í––”ö‚Å‚ ‚ê‚ÎˆÊ’u‚ğXV‚µ‚Äíœ
-
-	//		if (m_Node == m_TailNode)//––”ö‚Íƒ_ƒ~[‚¾‚ª”O‚Ì‚½‚ß
-	//		{
-	//			m_TailNode = m_Node->prev;
-	//			--_iterator;
-	//		}
-	//		else if (m_Node == m_HeadNode)
-	//		{
-	//			//æ“ª—v‘f‚ÌXV‚ğs‚¢A‘ÎÛ‚Ìƒf[ƒ^‚ğíœ
-	//			m_HeadNode = m_Node->next;
-	//			++_iterator;
-	//			delete m_Node;
-	//			m_Node = nullptr;
-	//			data_Count--;
-	//			return true;
-	//		}
-
-	//		//‘OŒã‚Ìƒf[ƒ^‚ÌŒq‚ª‚è‚ğì‚Á‚ÄA‘ÎÛ‚Ìƒf[ƒ^‚ğíœ
-	//		--_iterator;
-	//		m_Node->next->prev = m_Node->prev;
-	//		m_Node->prev->next = m_Node->next;
-	//		delete m_Node;
-	//		m_Node = nullptr;
-	//		data_Count--;
-	//		return true;
-	//	}
-	//	m_Node = m_Node->next;
-	//}
 }
 
 DoubleLinkedList::Iterator DoubleLinkedList::Get_HeadIterator()//æ“ªƒCƒeƒŒ[ƒ^‚ğ“n‚·
 {
 	DoubleLinkedList::Iterator tempIterator(m_HeadNode);
 	return tempIterator;
-	//DoubleLinkedList::Iterator* tempIterator=new DoubleLinkedList::Iterator;
-	//DoubleLinkedList::Node* tempNode = *(*tempIterator);
-	//tempNode = m_HeadNode;
-	//(*tempIterator) = tempNode;
-	//return tempIterator;
 }
 
 DoubleLinkedList::ConstIterator DoubleLinkedList::Get_HeadConstIterator()const//æ“ªƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^‚ğ“n‚·
@@ -189,12 +109,6 @@ DoubleLinkedList::Iterator DoubleLinkedList::Get_TailIterator()//––”öƒCƒeƒŒ[ƒ^‚
 {
 	DoubleLinkedList::Iterator tempIterator(m_TailNode);
 	return tempIterator;
-
-	//DoubleLinkedList::Iterator* tempIterator = new DoubleLinkedList::Iterator();
-	//DoubleLinkedList::Node* tempNode = *(*tempIterator);
-	//tempNode = m_TailNode;
-	//(*tempIterator) = tempNode;
-	//return tempIterator;
 }
 
 DoubleLinkedList::ConstIterator DoubleLinkedList::Get_TailConstIterator()const//––”öƒRƒ“ƒXƒgƒCƒeƒŒ[ƒ^‚ğ“n‚·
@@ -223,11 +137,6 @@ ScoreData* DoubleLinkedList::Iterator::operator*()//ƒCƒeƒŒ[ƒ^‚Ìw‚·—v‘f‚ğæ“¾(”
 	}
 	return nullptr;
 }
-
-//void DoubleLinkedList::Iterator::operator=(DoubleLinkedList::Node* _node)//ƒm[ƒh‚ğ‘ã“ü‚·‚é
-//{
-//	mp_Node = _node;
-//}
 
 DoubleLinkedList::ConstIterator::ConstIterator()//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 {
@@ -286,15 +195,6 @@ const ScoreData* DoubleLinkedList::ConstIterator::operator*()const//ƒCƒeƒŒ[ƒ^‚Ì
 		return mp_Node->scoredata;
 	}
 	return nullptr;
-	//if (mp_Node != nullptr)
-	//{
-	//	const DoubleLinkedList::Node* tempNode = mp_Node;
-	//	return tempNode;
-	//}
-	//else
-	//{
-	//	return nullptr;
-	//}
 }
 
 DoubleLinkedList::ConstIterator::ConstIterator(const ConstIterator & constiterator)//ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^

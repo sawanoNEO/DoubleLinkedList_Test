@@ -93,7 +93,6 @@ TEST(List, ID_07) {
 	(*testIterator) = testList.Get_HeadIterator();  //テストデータのイテレータを取得
 	testList.Delete(*testIterator);      //データを削除
 
-	//ASSERT_NE(testList.Count_Data(), -1) << "ID:0-07失敗。データ数が-1になっています";  //データ数が-1でなければ成功
 	ASSERT_EQ(testList.Count(), 0) << "ID:0-07失敗";   //データ数が0であれば成功
 }
 
@@ -228,6 +227,7 @@ TEST(List, 12_2) {
 		--(*testIterator);
 	}
 
+	//先頭にデータ挿入
 	*testIterator = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(100, "succes");
 	dataCheck = testList.Push_Back(*testIterator, testScore);
@@ -253,7 +253,6 @@ TEST(List, 12_3) {
 
 	//末尾要素にデータ挿入
 	*testIterator = testList.Get_TailIterator();
-
 	testScore = Set_ScoreData(100, "succes");
 	dataCheck = testList.Push_Back(*testIterator, testScore);
 
@@ -579,10 +578,12 @@ TEST(List,ID0_26_1){//先頭要素にデータを挿入した場合
 	ScoreData testScore; 
 	ScoreData* checkScore;
 
+	//先頭にデータ挿入
 	(*testIterator) = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(1, "success");
     testList.Push_Back(*testIterator, testScore);
 
+	//先頭イテレータ取得
 	(*testIterator) = testList.Get_HeadIterator();
 	checkScore = *(*testIterator);
 
@@ -749,6 +750,7 @@ TEST(List, ID_29) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	const ScoreData* checkScore;
 
+	//呼び出し
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	checkScore = *(*testConstIterator);
 
@@ -762,11 +764,13 @@ TEST(List, ID_30) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
 	const ScoreData* checkScore;
+
 	//データの挿入
 	testScore = Set_ScoreData(1, "succes");
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	testList.Push_Back(*testConstIterator, testScore);
 
+	//呼び出し
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	checkScore = *(*testConstIterator);
 
@@ -1030,6 +1034,7 @@ TEST(List, ID0_38_1) {//先頭要素にデータを挿入した場合
 	ScoreData testScore; 
 	ScoreData* checkScore;
 
+	//先頭にデータ挿入
 	(*testIterator) = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(1, "success");
     testList.Push_Back(*testIterator, testScore);
