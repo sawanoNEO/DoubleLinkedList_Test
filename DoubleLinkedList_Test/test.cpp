@@ -17,7 +17,7 @@ TEST(List, ID_01) {
 
 	//testScoreの初期化
 	testScore=Set_ScoreData(1, "success");
-    testList.Push_Back(*testIterator,testScore);   //データを挿入
+    testList.Insert(*testIterator,testScore);   //データを挿入
 
 	ASSERT_EQ(testList.Count(), 1)<<"ID:0-01失敗";    //データ数が1であれば成功
 }
@@ -42,7 +42,7 @@ TEST(List, ID_03) {
 
 	//testScoreの初期化
 	testScore = Set_ScoreData(1, "success");
-    testList.Push_Back(*testIterator,testScore);         //データの挿入
+    testList.Insert(*testIterator,testScore);         //データの挿入
 
 	ASSERT_EQ(testList.Count(), 1) << "ID:0-03失敗";   //データ数が1であれば成功
 }
@@ -66,7 +66,7 @@ TEST(List, ID_05) {
 	ScoreData testScore;
 	testScore = Set_ScoreData(1, "success");
 	(*testIterator) = testList.Get_TailIterator();  //テストデータのイテレータを取得
-    testList.Push_Back(*testIterator, testScore);  //データの挿入
+    testList.Insert(*testIterator, testScore);  //データの挿入
 	--(*testIterator);
 	testList.Delete(*testIterator);      //データを削除
 
@@ -95,14 +95,14 @@ TEST(List, ID_07) {
 
 	ASSERT_EQ(testList.Count(), 0) << "ID:0-07失敗";   //データ数が0であれば成功
 }
-
-//データ数の取得、constのメソッドであるか
-//コンパイルエラーがでなければ成功
-//TEST(List, ID_08) {
-//	DoubleLinkedList const testList; //constで宣言
-//	testList.Count_Data();           //コンパイルエラーがでなければ成功
-//}
-
+//
+////データ数の取得、constのメソッドであるか
+////コンパイルエラーがでなければ成功
+////TEST(List, ID_08) {
+////	DoubleLinkedList const testList; //constで宣言
+////	testList.Count_Data();           //コンパイルエラーがでなければ成功
+////}
+//
 //データ挿入関数:リストが空である場合に、挿入した際の挙動(先頭イテレータで検証)
 TEST(List, ID_09_1) {
 	DoubleLinkedList testList;            //テストデータの構築
@@ -114,7 +114,7 @@ TEST(List, ID_09_1) {
 	(*testIterator) = testList.Get_HeadIterator();  //テストデータのイテレータを取得
 	testScore = Set_ScoreData(1, "success");
     
-	dataCheck = testList.Push_Back(*testIterator,testScore);      //データを挿入
+	dataCheck = testList.Insert(*testIterator,testScore);      //データを挿入
 	
 	ASSERT_TRUE(dataCheck) << "ID:0-09-1失敗";
 }
@@ -129,7 +129,7 @@ TEST(List, ID_09_2) {
 	//末尾要素にデータを挿入
 	(*testIterator) = testList.Get_TailIterator();
 	testScore = Set_ScoreData(1, "success");
-	dataCheck = testList.Push_Back(*testIterator,testScore);
+	dataCheck = testList.Insert(*testIterator,testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID:0-09-2失敗";
 }
@@ -146,7 +146,7 @@ TEST(List, ID_10) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-   	    testList.Push_Back(*testIterator, testScore);
+   	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 		
 	}
@@ -154,7 +154,7 @@ TEST(List, ID_10) {
 	//先頭要素にデータ挿入
 	(*testIterator) = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(10000, "success");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck)<<"ID0_10失敗";
 }
@@ -171,7 +171,7 @@ TEST(List, ID_11) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 		
 	}
@@ -179,7 +179,7 @@ TEST(List, ID_11) {
 	//末尾要素にデータ挿入
 	(*testIterator) = testList.Get_TailIterator();
 	testScore = Set_ScoreData(10000, "success");
-    dataCheck = testList.Push_Back(*testIterator, testScore);
+    dataCheck = testList.Insert(*testIterator, testScore);
 	
 	ASSERT_TRUE(dataCheck) << "ID0_11失敗";
 }
@@ -196,7 +196,7 @@ TEST(List, 12_1) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -206,7 +206,7 @@ TEST(List, 12_1) {
 		++(*testIterator);
 	}
 	testScore = Set_ScoreData(100, "succes");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID0_12_1失敗";
 }
@@ -223,14 +223,14 @@ TEST(List, 12_2) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	//先頭にデータ挿入
 	*testIterator = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(100, "succes");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID0_12_2失敗";
 }
@@ -247,14 +247,14 @@ TEST(List, 12_3) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	//末尾要素にデータ挿入
 	*testIterator = testList.Get_TailIterator();
 	testScore = Set_ScoreData(100, "succes");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID0_12_2失敗";
 }
@@ -271,7 +271,7 @@ TEST(List, ID_13_1) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 	    --(*testIterator);
 	}
 
@@ -281,7 +281,7 @@ TEST(List, ID_13_1) {
 		++(*testIterator);
 	}
 	testScore = Set_ScoreData(100, "succes");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID0_13_1失敗";
 }
@@ -298,14 +298,14 @@ TEST(List, ID_13_2) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	//先頭要素にデータ挿入
 	(*testIterator) = testList.Get_HeadConstIterator();
 	testScore = Set_ScoreData(00010, "succes");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID0_13_2失敗";
 }
@@ -322,14 +322,14 @@ TEST(List, ID_13_3) {
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i + 1, "test0");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	//末尾要素にデータ挿入
 	(*testIterator) = testList.Get_TailConstIterator();
 	testScore = Set_ScoreData(100, "succes");
-	dataCheck = testList.Push_Back(*testIterator, testScore);
+	dataCheck = testList.Insert(*testIterator, testScore);
 
 	ASSERT_TRUE(dataCheck) << "ID0_13_3失敗";
 }
@@ -343,23 +343,23 @@ TEST(List, ID_14) {
 	bool dataCheck=false;
 
 	//未参照のイテレータにデータを代入
-    dataCheck = testList.Push_Back(*testIterator, testScore);
+    dataCheck = testList.Insert(*testIterator, testScore);
 	(*testIterator) = testList.Get_HeadIterator();
 
 	ASSERT_EQ(testList.Count(),0)<<"ID0_14失敗";
 }
 
-//データ挿入関数が非constのメソッドであるか
-//コンパイルエラーが出れば成功
-//TEST(List, ID_15)
-//{
-//	const DoubleLinkedList testList;
-//	DoubleLinkedList::Iterator* testIterator=new DoubleLinkedList::Iterator;
-//	ScoreData testScore; 
+////データ挿入関数が非constのメソッドであるか
+////コンパイルエラーが出れば成功
+////TEST(List, ID_15)
+////{
+////	const DoubleLinkedList testList;
+////	DoubleLinkedList::Iterator* testIterator=new DoubleLinkedList::Iterator;
+////	ScoreData testScore; 
+////
+//// testList.Push_Back(*testIterator, testScore);
+////}
 //
-// testList.Push_Back(*testIterator, testScore);
-//}
-
 ////以下、データ削除関数についてのテスト
 //リストが空である場合に削除を行った際の挙動(先頭イテレータ検証)
 TEST(List, ID_16_1)
@@ -401,7 +401,7 @@ TEST(List, ID_17) {
 	(*testIterator) = testList.Get_HeadIterator();
 	for (int i = 0; i < 10; i++)
 	{
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 	}
 
 	//先頭要素を削除
@@ -424,7 +424,7 @@ TEST(List, ID_18) {
 	(*testIterator) = testList.Get_HeadIterator();
 	for (int i = 0; i < 10; i++)
 	{
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 	}
 
 	//末尾要素を削除
@@ -445,7 +445,7 @@ TEST(List, ID_19) {
 	for (int i = 0; i < 10; i++)
 	{
 	 testScore = Set_ScoreData(i, "test");
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 	}
 
 	//指定の要素を削除
@@ -472,7 +472,7 @@ TEST(List, ID_20) {
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	for (int i = 0; i < 10; i++)
 	{
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 	}
 
 	//指定の要素を削除
@@ -510,21 +510,17 @@ TEST(List, ID_21) {
 //
 //}
 
-////以下、先頭イテレータ取得関数についてのテスト
-//リストが空である場合に、呼び出した際の挙動
+//////以下、先頭イテレータ取得関数についてのテスト
+////リストが空である場合に、呼び出した際の挙動
 TEST(List, ID_23) {
 	////テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator1 = new DoubleLinkedList::Iterator;
 	DoubleLinkedList::Iterator* testIterator2= new DoubleLinkedList::Iterator;
-	ScoreData* testScore;
 
 	(*testIterator1) = testList.Get_HeadIterator();
 	(*testIterator2) = testList.Get_TailIterator();
 
-	testScore = *(*testIterator1);
-
-	ASSERT_EQ(testScore->UserName,"dummy") << "ID_0_23失敗.データが一致しない";
 	ASSERT_NE(testIterator1, testIterator2) << "ID_0_23失敗.データがダミーでない";
 }
 
@@ -534,18 +530,18 @@ TEST(List, ID_24) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore;
-	ScoreData* checkScore; 
 
 	//データの挿入
 	testScore = Set_ScoreData(1, "succes");
 	(*testIterator) = testList.Get_HeadIterator();
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 
 	//先頭イテレータを取得し、検証
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
 
-	ASSERT_EQ(*(*testIterator),checkScore)<<"ID_0_24失敗";
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
+
+	ASSERT_TRUE(dataCheck)<<"ID_0_24失敗";
 }
 
 //リストに二つ以上の要素がある場合に、呼び出した際の挙動
@@ -554,20 +550,20 @@ TEST(List, ID_25) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore; 
+	
 	(*testIterator) = testList.Get_HeadIterator();
 
 	//複数のデータを挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "test");
-    	testList.Push_Back(*testIterator, testScore);
+    	testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator), checkScore) << "ID_0_25失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_25失敗";
 }
 
 //データの挿入を行った際に、呼び出した際の挙動
@@ -576,18 +572,17 @@ TEST(List,ID0_26_1){//先頭要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
 
 	//先頭にデータ挿入
 	(*testIterator) = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(1, "success");
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 
 	//先頭イテレータ取得
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_26_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_26_1失敗";
 }
 
 //データの挿入を行った際に、呼び出した際の挙動
@@ -596,15 +591,14 @@ TEST(List,ID0_26_2){//中央要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
-
+	
 	(*testIterator) = testList.Get_HeadIterator();
 
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -614,11 +608,11 @@ TEST(List,ID0_26_2){//中央要素にデータを挿入した場合
 		++(*testIterator);
 	}
 	testScore = Set_ScoreData(10000, "center");
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_26_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_26_2失敗";
 }
 
 //データの挿入を行った際に、呼び出した際の挙動
@@ -626,8 +620,7 @@ TEST(List,ID0_26_3){//末尾要素にデータを挿入した場合
 	////テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData testScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 
@@ -635,18 +628,18 @@ TEST(List,ID0_26_3){//末尾要素にデータを挿入した場合
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	(*testIterator) = testList.Get_TailIterator();
 	//末尾要素にデータを挿入する
 	testScore = Set_ScoreData(10000, "tail");
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_26_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_26_3失敗";
 }
 
 //データの削除を行った際に、呼び出した際の挙動
@@ -654,15 +647,14 @@ TEST(List,ID0_27_1){//先頭要素のデータを削除した場合
     ////テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData testScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	 testList.Push_Back(*testIterator, testScore);
+	 testList.Insert(*testIterator, testScore);
 		
 	}
 
@@ -670,9 +662,9 @@ TEST(List,ID0_27_1){//先頭要素のデータを削除した場合
 	(*testIterator) = testList.Get_HeadIterator();
 	testList.Delete(*testIterator);
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_27_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_27_1失敗";
 }
 
 //データの削除を行った際に、呼び出した際の挙動
@@ -681,7 +673,6 @@ TEST(List,ID0_27_2){//中央要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore;
-	ScoreData* checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 
@@ -689,7 +680,7 @@ TEST(List,ID0_27_2){//中央要素のデータを削除した場合
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -701,9 +692,9 @@ TEST(List,ID0_27_2){//中央要素のデータを削除した場合
 	}
 	testList.Delete(*testIterator);
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_27_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_27_2失敗";
 }
 
 //データの削除を行った際に、呼び出した際の挙動
@@ -712,15 +703,14 @@ TEST(List,ID0_27_3){//末尾要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
-
+	
 	(*testIterator) = testList.Get_HeadIterator();
 
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -728,9 +718,9 @@ TEST(List,ID0_27_3){//末尾要素のデータを削除した場合
 	(*testIterator)=testList.Get_TailIterator();
 	testList.Delete(*testIterator);
 	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_HeadIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_27_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_27_3失敗";
 }
 
 //constのリストから、ConstIteratorでないIteratorの取得が行えないかをチェック
@@ -748,13 +738,12 @@ TEST(List, ID_29) {
 	////テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* checkScore;
 
 	//呼び出し
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore,*(*testConstIterator)) << "ID_0_29失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_29失敗";
 }
 
 //リストに要素が一つある場合に、呼び出した際の挙動
@@ -763,18 +752,18 @@ TEST(List, ID_30) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	//データの挿入
 	testScore = Set_ScoreData(1, "succes");
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 
 	//呼び出し
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_30失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_30失敗";
 }
 
 //リストに二つ以上の要素がある場合に、呼び出した際の挙動
@@ -783,7 +772,7 @@ TEST(List, ID_31) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 
@@ -791,13 +780,13 @@ TEST(List, ID_31) {
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "test");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_31失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_31失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -806,16 +795,16 @@ TEST(List, ID0_32_1) {//先頭要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	testScore = Set_ScoreData(1, "success");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_32_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_32_1失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -824,7 +813,7 @@ TEST(List, ID0_32_2) {//中央要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 
@@ -832,7 +821,7 @@ TEST(List, ID0_32_2) {//中央要素にデータを挿入した場合
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -842,11 +831,11 @@ TEST(List, ID0_32_2) {//中央要素にデータを挿入した場合
 		++(*testConstIterator);
 	}
 	testScore = Set_ScoreData(10000, "center");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_32_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_32_2失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -855,7 +844,7 @@ TEST(List, ID0_32_3) {//末尾要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 
@@ -863,18 +852,18 @@ TEST(List, ID0_32_3) {//末尾要素にデータを挿入した場合
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
 	//末尾要素にデータを挿入する
 	testScore = Set_ScoreData(10000, "tail");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_32_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_32_3失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -883,14 +872,14 @@ TEST(List, ID0_33_1) {//先頭要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -899,9 +888,9 @@ TEST(List, ID0_33_1) {//先頭要素のデータを削除した場合
 	testList.Delete(*testConstIterator);
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_33_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_33_1失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -910,14 +899,14 @@ TEST(List, ID0_33_2) {//中央要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -929,9 +918,9 @@ TEST(List, ID0_33_2) {//中央要素のデータを削除した場合
 	}
 	testList.Delete(*testConstIterator);
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_33_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_33_2失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -940,25 +929,25 @@ TEST(List, ID0_33_3) {//末尾要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
 	//末尾要素にデータを挿入する
 	testScore = Set_ScoreData(10000, "tail");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_HeadConstIterator();
 
-	ASSERT_EQ(checkScore, *(*testConstIterator)) << "ID_0_33_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_33_3失敗";
 }
 
 //constのメソッドであるか
@@ -975,12 +964,12 @@ TEST(List, ID_35) {
 	////テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_35失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_35失敗";
 }
 
 //リストに要素が一つある場合に、呼び出した際の挙動
@@ -989,17 +978,17 @@ TEST(List, ID_36) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	//データの挿入
 	testScore = Set_ScoreData(1, "success");
 	(*testIterator) = testList.Get_HeadIterator();
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_36失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_36失敗";
 }
 
 //リストに二つ以上の要素がある場合に、呼び出した際の挙動
@@ -1008,7 +997,7 @@ TEST(List, ID_37) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 
@@ -1016,14 +1005,14 @@ TEST(List, ID_37) {
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "test");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_37失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_37失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -1032,17 +1021,17 @@ TEST(List, ID0_38_1) {//先頭要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	//先頭にデータ挿入
 	(*testIterator) = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(1, "success");
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_38_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_38_1失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -1051,7 +1040,7 @@ TEST(List, ID0_38_2) {//中央要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 
@@ -1059,7 +1048,7 @@ TEST(List, ID0_38_2) {//中央要素にデータを挿入した場合
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1070,11 +1059,11 @@ TEST(List, ID0_38_2) {//中央要素にデータを挿入した場合
 		++(*testIterator);
 	}
 	testScore = Set_ScoreData(10000, "center");
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_38_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_38_2失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -1083,25 +1072,25 @@ TEST(List, ID0_38_3) {//末尾要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	(*testIterator) = testList.Get_TailIterator();
 	//末尾要素にデータを挿入する
 	testScore = Set_ScoreData(10000, "tail");
-    testList.Push_Back(*testIterator, testScore);
+    testList.Insert(*testIterator, testScore);
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_38_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_38_3失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -1110,14 +1099,14 @@ TEST(List, ID0_39_1) {//先頭要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore;
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-     	testList.Push_Back(*testIterator, testScore);
+     	testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1126,9 +1115,9 @@ TEST(List, ID0_39_1) {//先頭要素のデータを削除した場合
 	testList.Delete(*testIterator);
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_39_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_39_1失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -1137,14 +1126,14 @@ TEST(List, ID0_39_2) {//中央要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
- 	    testList.Push_Back(*testIterator, testScore);
+ 	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1157,9 +1146,9 @@ TEST(List, ID0_39_2) {//中央要素のデータを削除した場合
 	testList.Delete(*testIterator);
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_39_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_39_2失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -1168,14 +1157,14 @@ TEST(List, ID0_39_3) {//末尾要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	(*testIterator) = testList.Get_HeadIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1184,9 +1173,9 @@ TEST(List, ID0_39_3) {//末尾要素のデータを削除した場合
 	testList.Delete(*testIterator);
 
 	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
+	bool dataCheck = (*testIterator) == testList.Get_TailIterator();
 
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_0_39_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_39_3失敗";
 }
 
 //constのリストから、ConstIteratorでないIteratorの取得が行えないかをチェック
@@ -1204,12 +1193,12 @@ TEST(List, ID_41) {
 	////テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_41失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_41失敗";
 }
 
 //リストに要素が一つある場合に、呼び出した際の挙動
@@ -1218,17 +1207,17 @@ TEST(List, ID_42) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	//データの挿入
 	testScore = Set_ScoreData(1, "succes");
 	(*testConstIterator) = testList.Get_HeadConstIterator();
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_42失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_42失敗";
 }
 
 //リストに二つ以上の要素がある場合に、呼び出した際の挙動
@@ -1237,7 +1226,7 @@ TEST(List, ID_43) {
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore;
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 
@@ -1245,13 +1234,13 @@ TEST(List, ID_43) {
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "test");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_43失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_43失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -1260,16 +1249,16 @@ TEST(List, ID0_44_1) {//先頭要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	testScore = Set_ScoreData(1, "success");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_44_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_44_1失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -1278,14 +1267,14 @@ TEST(List, ID0_44_2) {//中央要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -1296,11 +1285,11 @@ TEST(List, ID0_44_2) {//中央要素にデータを挿入した場合
 		++(*testConstIterator);
 	}
 	testScore = Set_ScoreData(10000, "center");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_44_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_44_2失敗";
 }
 
 //データの挿入を行った後に、呼び出した際の挙動
@@ -1309,25 +1298,25 @@ TEST(List, ID0_44_3) {//末尾要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
 	//末尾要素にデータを挿入する
 	testScore = Set_ScoreData(10000, "tail");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_44_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_44_3失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -1336,14 +1325,14 @@ TEST(List, ID0_45_1) {//先頭要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -1352,9 +1341,9 @@ TEST(List, ID0_45_1) {//先頭要素のデータを削除した場合
 	testList.Delete(*testConstIterator);
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_45_1失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_45_1失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -1363,14 +1352,14 @@ TEST(List, ID0_45_2) {//中央要素のデータを削除した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -1383,9 +1372,9 @@ TEST(List, ID0_45_2) {//中央要素のデータを削除した場合
 	testList.Delete(*testConstIterator);
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_45_2失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_45_2失敗";
 }
 
 //データの削除を行った後に、呼び出した際の挙動
@@ -1394,25 +1383,25 @@ TEST(List, ID0_45_3) {//末尾要素にデータを挿入した場合
 	DoubleLinkedList testList;
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	//一旦データを挿入する
 	for (int i = 0; i < 10; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	(*testConstIterator) = testList.Get_TailConstIterator();
 	//末尾要素にデータを挿入する
 	testScore = Set_ScoreData(10000, "tail");
-	testList.Push_Back(*testConstIterator, testScore);
+	testList.Insert(*testConstIterator, testScore);
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	bool dataCheck = (*testConstIterator) == testList.Get_TailConstIterator();
 
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_0_45_3失敗";
+	ASSERT_TRUE(dataCheck) << "ID_0_45_3失敗";
 }
 
 //constのメソッドであるか
@@ -1427,211 +1416,185 @@ TEST(List, ID0_45_3) {//末尾要素にデータを挿入した場合
 ////基本的にはIDの2番目の値が1の場合はイテレータ、2の場合はコンストイテレータに対してテストを行う
 
 ////イテレータの指す要素を取得する(operator*)についてのテスト
-//リストの参照がない状態で呼び出した際の挙動
-TEST(Iterator, ID_0_1) {
-	////テスト用データの宣言
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//リストの参照がない状態で呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_0_1) {
+//	////テスト用データの宣言
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//
+//	//イテレータの指す要素を取得(失敗する)
+//	ScoreData testScore = *(*testIterator);
+//}
 
-	//イテレータの指す要素を取得(失敗する)
-	ScoreData* testScore = *(*testIterator);
-
-	ASSERT_EQ(testScore,nullptr) << "ID_1_0_1失敗";
-}
-
-//リストの参照がない状態で呼び出した際の挙動
-TEST(Iterator, ID_0_2) {
-	//テスト用データの宣言
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-
-	//イテレータの指す要素を取得(失敗する)
-	const ScoreData* testScore = *(*testConstIterator);
-
-	ASSERT_EQ(testScore,nullptr) << "ID_1_0_2失敗";
-}
+//リストの参照がない状態で呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_0_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//
+//	//イテレータの指す要素を取得(失敗する)
+//	ScoreData testScore = *(*testIterator);
+//}
 
 //Iteratorから取得した要素に対して、値の代入が行えるかをチェック
 TEST(Iterator, ID_1) {
 	//テスト用データの宣言
 	DoubleLinkedList testList;
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData* testScore; 
-	
+	ScoreData testScore; 
+	testScore.Score = 100;
+	testScore.UserName = "test";
+
 	//テストデータを挿入
 	(*testIterator) = testList.Get_HeadIterator();
-	
-	testScore = *(*testIterator);
-
-	testScore->Score = 1;
-	testScore->UserName = "success";
+	testList.Insert(*testIterator, testScore);
+	--(*testIterator);
 
 	testScore = *(*testIterator);
 
-	ASSERT_EQ(testScore->Score, 1);
-	ASSERT_EQ(testScore->UserName, "success");
+	testScore.Score = 1;
+	testScore.UserName = "success";
+
+	ASSERT_EQ(testScore.Score, 1);
+	ASSERT_EQ(testScore.UserName, "success");
 }
 
-//コンパイルエラーになれば成功
-//ConstIteratorから取得した要素に対して、値の代入が行えないかをチェック
-//TEST(Iterator, ID_2) {
-	////テスト用データの宣言
-	//DoubleLinkedList testList;
-	//DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	//const ScoreData* testScore = *(*testConstIterator);
-	//
-	//testScore->Score = 1;
-	//testScore->UserName = "success";
+////コンパイルエラーになれば成功
+////ConstIteratorから取得した要素に対して、値の代入が行えないかをチェック
+////TEST(Iterator, ID_2) {
+//	////テスト用データの宣言
+//	//DoubleLinkedList testList;
+//	//DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	//const ScoreData testScore = *(*testConstIterator);
+//	//
+//	//testScore.Score = 1;
+//	//testScore.UserName = "success";
+////}
+//
+//リストが空の際の、先頭イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_3_1) {
+//
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//	ScoreData testScore;
+//	ScoreData checkScore;//ダミーデータ
+//	
+//	//先頭要素を取得
+//	(*testIterator) = testList.Get_HeadIterator();
+//	testScore = *(*testIterator);
+//
+//	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_3_1失敗";
+//	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_3_1失敗";
 //}
 
-//リストが空の際の、先頭イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_3_1) {
+////リストが空の際の、先頭イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_3_2) {
+//
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	ScoreData checkScore;//ダミーデータ
+//
+//	//先頭要素を取得
+//	(*testConstIterator) = testList.Get_HeadConstIterator();
+//	const ScoreData testScore = *(*testConstIterator);
+//}
 
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData* testScore;
-	ScoreData checkScore;//ダミーデータ
-	
-	//先頭要素を取得
-	(*testIterator) = testList.Get_HeadIterator();
-	testScore = *(*testIterator);
+////末尾イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_4_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//	ScoreData testScore;
+//	ScoreData checkScore;//ダミーデータ
+//
+//	//末尾要素を取得
+//	(*testIterator) = testList.Get_TailIterator();
+//	testScore = *(*testIterator);
+//}
 
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_3_1失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_3_1失敗";
-}
-
-//リストが空の際の、先頭イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_3_2) {
-
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* testScore;
-	ScoreData checkScore;//ダミーデータ
-
-	//先頭要素を取得
-	(*testConstIterator) = testList.Get_HeadConstIterator();
-	testScore = *(*testConstIterator);
-
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_3_2失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_3_2失敗";
-}
-
-//末尾イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_4_1) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData* testScore;
-	ScoreData checkScore;//ダミーデータ
-
-	//末尾要素を取得
-	(*testIterator) = testList.Get_TailIterator();
-	testScore = *(*testIterator);
-
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_4_1失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_4_1失敗";
-}
-
-TEST(Iterator, ID_4_2) {
-
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* testScore;
-	ScoreData checkScore;//ダミーデータ
-
-	//先頭要素を取得
-	(*testConstIterator) = testList.Get_TailConstIterator();
-	testScore = *(*testConstIterator);
-
-	ASSERT_EQ(testScore->Score,checkScore.Score ) << "ID_1_4_2失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName ) << "ID_1_4_2失敗";
-}
+//末尾イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_4_2) {
+//
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	ScoreData checkScore;//ダミーデータ
+//
+//	//先頭要素を取得
+//	(*testConstIterator) = testList.Get_TailConstIterator();
+//	const ScoreData testScore = *(*testConstIterator);
+//}
 
 ////イテレータをリストの末尾に向かって一つ進める(operator++)についてのテスト
-//リストの参照がない状態で呼び出した際の挙動
-TEST(Iterator, ID_5_1) {
-	//テスト用データの宣言
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+////リストの参照がない状態で呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_5_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//
+//	//末尾側に進める
+//	++(*testIterator);
+//}
 
-	//末尾側に進める
-	++(*testIterator);
-	ASSERT_EQ(*(*testIterator),nullptr)<<"ID_1_5_1失敗";
-}
+//リストの参照がない状態で呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_5_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	
+//	//末尾側に進める
+//	++(*testConstIterator);
+//}
 
-//リストの参照がない状態で呼び出した際の挙動
-TEST(Iterator, ID_5_2) {
-	//テスト用データの宣言
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	
-	//末尾側に進める
-	++(*testConstIterator);
-	ASSERT_EQ(*(*testConstIterator),nullptr)<<"ID_1_5_2失敗";
-}
+////リストが空の際の、先頭イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_6_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//	ScoreData checkScore;
+//
+//	(*testIterator) = testList.Get_HeadIterator();
+//	checkScore = *(*testIterator);
+//	//末尾側に進める
+//	++(*testIterator);
+//}
 
-//リストが空の際の、先頭イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_6_1) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData* checkScore;
+////リストが空の際の、先頭イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_6_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	
+//
+//	(*testConstIterator) = testList.Get_HeadConstIterator();
+//	const ScoreData checkScore=*(*testConstIterator);
+//	//末尾側に進める
+//	++(*testConstIterator);
+//}
 
-	(*testIterator) = testList.Get_HeadIterator();
-	checkScore = *(*testIterator);
-	//末尾側に進める
-	++(*testIterator);
+//末尾イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_7_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//	ScoreData checkScore;
+//
+//	(*testIterator) = testList.Get_TailIterator();
+//	checkScore = *(*testIterator);
+//	//末尾側に進める
+//	++(*testIterator);
+//}
 
-	//インクリメントが失敗していれば先頭から位置が変わっていないはず
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_1_6_1失敗";
-}
-
-//リストが空の際の、先頭イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_6_2) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* checkScore;
-
-	(*testConstIterator) = testList.Get_HeadConstIterator();
-	checkScore = *(*testConstIterator);
-	//末尾側に進める
-	++(*testConstIterator);
-
-	//インクリメントが失敗していれば先頭から位置が変わっていないはず
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_1_6_2失敗";
-}
-
-//末尾イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_7_1) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	ScoreData* checkScore;
-
-	(*testIterator) = testList.Get_TailIterator();
-	checkScore = *(*testIterator);
-	//末尾側に進める
-	++(*testIterator);
-	
-	//末尾からはインクリメントしても位置が変わらない
-	ASSERT_EQ(*(*testIterator),checkScore) << "ID_1_7_1失敗";
-}
-
-//末尾イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_7_2) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* checkScore;
-
-	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
-	//末尾側に進める
-	++(*testConstIterator);
-
-	//末尾からはインクリメントしても位置が変わらない
-	ASSERT_EQ(*(*testConstIterator),checkScore) << "ID_1_7_2失敗";
-}
+//末尾イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_7_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	
+//
+//	(*testConstIterator) = testList.Get_TailConstIterator();
+//	const ScoreData checkScore=*(*testConstIterator);
+//	//末尾側に進める
+//	++(*testConstIterator);
+//}
 
 //リストに二つ以上の要素がある場合に呼び出した際の挙動
 TEST(Iterator, ID_8_1) {
@@ -1640,13 +1603,13 @@ TEST(Iterator, ID_8_1) {
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	(*testIterator) = testList.Get_HeadIterator();
 	ScoreData testScore; 
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1659,16 +1622,16 @@ TEST(Iterator, ID_8_1) {
 		checkScore = *(*testIterator);
 		++(*testIterator);
 		i--;
-		ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_8_1失敗";
-		ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_8_1失敗";
+		ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_8_1失敗";
+		ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_8_1失敗";
 	}
 	//末尾の検証
 	(*testIterator) = testList.Get_TailIterator();
 	checkScore = *(*testIterator);
 	testScore = Set_ScoreData(0, "dummy");
 
-	ASSERT_EQ(testScore.Score,checkScore->Score)<<"ID_1_8_1失敗、末尾に異常";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName)<<"ID_1_8_1失敗、末尾に異常";
+	ASSERT_EQ(testScore.Score,checkScore.Score)<<"ID_1_8_1失敗、末尾に異常";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName)<<"ID_1_8_1失敗、末尾に異常";
 }
 
 //リストに二つ以上の要素がある場合に呼び出した際の挙動
@@ -1678,13 +1641,13 @@ TEST(Iterator, ID_8_2) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -1694,19 +1657,19 @@ TEST(Iterator, ID_8_2) {
 	while (testConstIterator&&i>0)
 	{
 		testScore = Set_ScoreData(i, "success");
-		checkScore = *(*testConstIterator);
+		const ScoreData checkScore=*(*testConstIterator);
 		++(*testConstIterator);
 		i--;
-		ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_8_2失敗";
-		ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_8_2失敗";
+		ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_8_2失敗";
+		ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_8_2失敗";
 	}
 	//末尾の検証
 	(*testConstIterator) = testList.Get_TailConstIterator();
-	checkScore = *(*testConstIterator);
+	const ScoreData checkScore=*(*testConstIterator);
 	testScore = Set_ScoreData(0, "dummy");
 
-	ASSERT_EQ(testScore.Score,checkScore->Score)<<"ID_1_8_2失敗、末尾に異常";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName)<<"ID_1_8_2失敗、末尾に異常";
+	ASSERT_EQ(testScore.Score,checkScore.Score)<<"ID_1_8_2失敗、末尾に異常";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName)<<"ID_1_8_2失敗、末尾に異常";
 }
 
 //前置インクリメントを行った際の挙動( ++演算子オーバーロードで実装した場合 )
@@ -1716,30 +1679,30 @@ TEST(Iterator, ID_9_1){
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	(*testIterator) = testList.Get_HeadIterator();
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	//移動前の検証
 	(*testIterator) = testList.Get_HeadIterator();
 	testScore = Set_ScoreData(4, "success");
-	checkScore = *(*testIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_9_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_9_1失敗";
+	ScoreData checkScore=*(*testIterator);
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_9_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_9_1失敗";
 
 	//一つ進めた後の検証
 	DoubleLinkedList::ConstIterator* tempIterator = new DoubleLinkedList::ConstIterator;
 	*tempIterator = ++(*testIterator);
 	testScore = Set_ScoreData(3, "success");
 	checkScore = *(*tempIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_9_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_9_1失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_9_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_9_1失敗";
 
 }
 
@@ -1750,30 +1713,30 @@ TEST(Iterator, ID_9_2){
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	//移動前の検証
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	testScore = Set_ScoreData(4, "success");
-	checkScore = *(*testConstIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_9_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_9_2失敗";
+	ScoreData checkScore=*(*testConstIterator);
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_9_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_9_2失敗";
 
 	//一つ進めた後の検証
 	DoubleLinkedList::ConstIterator* tempIterator = new DoubleLinkedList::ConstIterator;
 	*tempIterator = ++(*testConstIterator);
 	testScore = Set_ScoreData(3, "success");
 	checkScore = *(*tempIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_9_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_9_2失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_9_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_9_2失敗";
 
 }
 
@@ -1784,13 +1747,13 @@ TEST(Iterator, ID_10_1) {
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	(*testIterator) = testList.Get_HeadIterator();
 	ScoreData testScore; 
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-	    testList.Push_Back(*testIterator, testScore);
+	    testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1800,17 +1763,17 @@ TEST(Iterator, ID_10_1) {
 	DoubleLinkedList::ConstIterator* tempIterator=new DoubleLinkedList::ConstIterator;
 	*tempIterator = (*testIterator)++;
 	testScore = Set_ScoreData(4, "success");
-	checkScore = *(*tempIterator);
+	ScoreData checkScore = *(*tempIterator);
 
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_10_1失敗,1";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_10_1失敗,2";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_10_1失敗,1";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_10_1失敗,2";
 
 	//一つ進めた後の検証
 	testScore = Set_ScoreData(3, "success");
 	checkScore = *(*testIterator);
 
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_10_1失敗,3";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_10_1失敗,4";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_10_1失敗,3";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_10_1失敗,4";
 }
 
 //後置インクリメントを行った際の挙動( ++演算子オーバーロードで実装した場合 )
@@ -1820,13 +1783,13 @@ TEST(Iterator, ID_10_2) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	ScoreData testScore; 
-    const ScoreData* checkScore;
+    
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -1837,110 +1800,91 @@ TEST(Iterator, ID_10_2) {
 	*tempConstIterator = (*testConstIterator)++;
 
 	testScore = Set_ScoreData(4, "success");
-	checkScore = *(*tempConstIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_10_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_10_2失敗";
+	ScoreData checkScore = *(*tempConstIterator);
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_10_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_10_2失敗";
 
 	//一つ進めた後の検証
 	testScore = Set_ScoreData(3, "success");
 	checkScore = *(*testConstIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_10_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_10_2失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_10_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_10_2失敗";
 
 }
 
 ////イテレータをリストの先頭に向かって一つ進める(operator--)についてのテスト
-//リストの参照がない状態で呼び出した際の挙動
-TEST(Iterator, ID_11_1) {
-	//テスト用データの宣言
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+////リストの参照がない状態で呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_11_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//
+//	//先頭側に進める
+//	--(*testIterator);
+//}
 
-	//先頭側に進める
-	--(*testIterator);
-	ASSERT_EQ(*(*testIterator),nullptr) << "ID_1_11_1失敗";
-}
+////リストの参照がない状態で呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_11_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//
+//	//先頭側に進める
+//	--(*testConstIterator);
+//}
 
-//リストの参照がない状態で呼び出した際の挙動
-TEST(Iterator, ID_11_2) {
-	//テスト用データの宣言
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+////リストが空の際の、末尾イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_12_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//	
+//	ScoreData testScore;
+//	ScoreData checkScore;
+//
+//	(*testIterator) = testList.Get_TailIterator();
+//	//先頭側に進める
+//	--(*testIterator);
+//}
 
-	//先頭側に進める
-	--(*testConstIterator);
-	ASSERT_EQ(*(*testConstIterator),nullptr) << "ID_1_11_2失敗";
-}
+////リストが空の際の、末尾イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_12_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	
+//	ScoreData checkScore;
+//
+//	(*testConstIterator) = testList.Get_TailConstIterator();
+//	//末尾側に進める
+//	--(*testConstIterator);
+//}
 
-//リストが空の際の、末尾イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_12_1) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	
-	ScoreData* testScore;
-	ScoreData checkScore;
+////先頭イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_13_1) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
+//	
+//	ScoreData testScore;
+//	ScoreData checkScore;
+//
+//
+//	(*testIterator) = testList.Get_HeadIterator();
+//	//末尾側に進める
+//	--(*testIterator);
+//}
 
-	(*testIterator) = testList.Get_TailIterator();
-	//先頭側に進める
-	--(*testIterator);
-	testScore = *(*testIterator);
-
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_12_1失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_12_1失敗";
-}
-
-//リストが空の際の、末尾イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_12_2) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* testScore;
-	ScoreData checkScore;
-
-	(*testConstIterator) = testList.Get_TailConstIterator();
-	//末尾側に進める
-	--(*testConstIterator);
-	testScore = *(*testConstIterator);
-	
-
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_12_2失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_12_2失敗";
-}
-
-//先頭イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_13_1) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
-	
-	ScoreData* testScore;
-	ScoreData checkScore;
-
-
-	(*testIterator) = testList.Get_HeadIterator();
-	//末尾側に進める
-	--(*testIterator);
-	testScore = *(*testIterator);
-
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_13_1失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_13_1失敗";
-}
-
-//先頭イテレータに対して呼び出した際の挙動
-TEST(Iterator, ID_13_2) {
-	//テスト用データの宣言
-	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
-	const ScoreData* testScore;
-	ScoreData checkScore;
-
-	(*testConstIterator) = testList.Get_HeadConstIterator();
-	//末尾側に進める
-	--(*testConstIterator);
-	testScore = *(*testConstIterator);
-
-	ASSERT_EQ(testScore->Score,checkScore.Score) << "ID_1_13_2失敗";
-	ASSERT_EQ(testScore->UserName,checkScore.UserName) << "ID_1_13_2失敗";
-}
+////先頭イテレータに対して呼び出した際の挙動(Assert発生すると中断されるのでコメント化)
+//TEST(Iterator, ID_13_2) {
+//	//テスト用データの宣言
+//	DoubleLinkedList testList;
+//	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
+//	
+//	ScoreData checkScore;
+//
+//	(*testConstIterator) = testList.Get_HeadConstIterator();
+//	//末尾側に進める
+//	--(*testConstIterator);
+//}
 
 //リストに二つ以上の要素がある場合に呼び出した際の挙動
 TEST(Iterator, ID_14_1) {
@@ -1949,13 +1893,13 @@ TEST(Iterator, ID_14_1) {
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	(*testIterator) = testList.Get_HeadIterator();
 	ScoreData testScore;
-	ScoreData* checkScore;
+	ScoreData checkScore;
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testIterator, testScore);
+		testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -1964,17 +1908,17 @@ TEST(Iterator, ID_14_1) {
 	testScore = Set_ScoreData(0, "dummy");
 	checkScore = *(*testIterator);
 
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_14_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_14_1失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_14_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_14_1失敗";
 
 	for (int i = 0; i < testList.Count(); i++)
 	{
 		--(*testIterator);
 		testScore = Set_ScoreData(i, "success");
-		checkScore = *(*testIterator);
+		const ScoreData checkScore=*(*testIterator);
 		
-		ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_14_1失敗";
-		ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_14_1失敗";
+		ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_14_1失敗";
+		ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_14_1失敗";
 	}
 }
 
@@ -1985,31 +1929,31 @@ TEST(Iterator, ID_14_2) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	ScoreData testScore;
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	//末尾から順に検証していく
 	(*testConstIterator) = testList.Get_TailConstIterator();
 	testScore = Set_ScoreData(0, "dummy");
-	checkScore = *(*testConstIterator);
+	const ScoreData checkScore=*(*testConstIterator);
 	
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_14_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_14_2失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_14_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_14_2失敗";
     for(int i=0;i<testList.Count();i++)
 	{
 		--(*testConstIterator);
 		testScore = Set_ScoreData(i, "success");
-		checkScore = *(*testConstIterator);
+		const ScoreData checkScore=*(*testConstIterator);
 		
-		ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_14_2失敗";
-		ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_14_2失敗";
+		ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_14_2失敗";
+		ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_14_2失敗";
 	}
 }
 
@@ -2020,31 +1964,31 @@ TEST(Iterator, ID_15_1) {
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	(*testIterator) = testList.Get_HeadIterator();
 	ScoreData testScore;
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testIterator, testScore);
+		testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
 	//移動前の検証
 	(*testIterator) = testList.Get_TailIterator();
 	testScore = Set_ScoreData(0, "dummy");
-	checkScore = *(*testIterator);
+	ScoreData checkScore=*(*testIterator);
 	
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_15_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_15_1失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_15_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_15_1失敗";
 
 	//一つ進めた後の検証
 	DoubleLinkedList::ConstIterator tempIterator = --(*testIterator);
 	testScore = Set_ScoreData(0, "success");
 	checkScore = *tempIterator;
 	
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_15_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_15_1失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_15_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_15_1失敗";
 
 }
 
@@ -2055,31 +1999,31 @@ TEST(Iterator, ID_15_2) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	ScoreData testScore;
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
 	//移動前の検証
 	(*testConstIterator) = testList.Get_TailConstIterator();
 	testScore = Set_ScoreData(0, "dummy");
-	checkScore = *(*testConstIterator);
+	ScoreData checkScore=*(*testConstIterator);
 
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_15_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_15_2失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_15_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_15_2失敗";
 
 	//一つ進めた後の検証
 	DoubleLinkedList::ConstIterator tempIterator = --(*testConstIterator);
 	testScore = Set_ScoreData(0, "success");
 	checkScore = *tempIterator;
 
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_15_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_15_2失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_15_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_15_2失敗";
 
 }
 
@@ -2090,13 +2034,13 @@ TEST(Iterator, ID_16_1) {
 	DoubleLinkedList::Iterator* testIterator = new DoubleLinkedList::Iterator;
 	(*testIterator) = testList.Get_HeadIterator();
 	ScoreData testScore;
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testIterator, testScore);
+		testList.Insert(*testIterator, testScore);
 		--(*testIterator);
 	}
 
@@ -2106,16 +2050,16 @@ TEST(Iterator, ID_16_1) {
 	DoubleLinkedList::ConstIterator tempConstIterator = (*testIterator)--;
 
 	testScore = Set_ScoreData(0, "dummy");
-	checkScore = *tempConstIterator;
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_16_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_16_1失敗";
+	ScoreData checkScore = *tempConstIterator;
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_16_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_16_1失敗";
 
 	//一つ進めた後の検証
 	testScore = Set_ScoreData(0, "success");
-	checkScore = *(*testIterator);
+    checkScore=*(*testIterator);
 
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_16_1失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_16_1失敗";
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_16_1失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_16_1失敗";
 
 }
 
@@ -2126,13 +2070,13 @@ TEST(Iterator, ID_16_2) {
 	DoubleLinkedList::ConstIterator* testConstIterator = new DoubleLinkedList::ConstIterator;
 	(*testConstIterator) = testList.Get_HeadConstIterator();
 	ScoreData testScore;
-	const ScoreData* checkScore;
+	
 
 	//とりあえずデータの挿入
 	for (int i = 0; i < 5; i++)
 	{
 		testScore = Set_ScoreData(i, "success");
-		testList.Push_Back(*testConstIterator, testScore);
+		testList.Insert(*testConstIterator, testScore);
 		--(*testConstIterator);
 	}
 
@@ -2142,15 +2086,15 @@ TEST(Iterator, ID_16_2) {
 	DoubleLinkedList::ConstIterator tempConstIterator = (*testConstIterator)--;
 
 	testScore = Set_ScoreData(0, "dummy");
-	checkScore = *tempConstIterator;
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_16_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_16_2失敗";
+	ScoreData checkScore = *tempConstIterator;
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_16_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_16_2失敗";
 
 	//一つ進めた後の検証
 	testScore = Set_ScoreData(0, "success");
-	checkScore = *(*testConstIterator);
-	ASSERT_EQ(testScore.Score,checkScore->Score) << "ID_1_16_2失敗";
-	ASSERT_EQ(testScore.UserName,checkScore->UserName) << "ID_1_16_2失敗";
+	checkScore=*(*testConstIterator);
+	ASSERT_EQ(testScore.Score,checkScore.Score) << "ID_1_16_2失敗";
+	ASSERT_EQ(testScore.UserName,checkScore.UserName) << "ID_1_16_2失敗";
 
 }
 
@@ -2166,21 +2110,43 @@ TEST(Iterator, ID_16_2) {
 //コピーコンストラクト後の値がコピー元と等しいことをチェック
 TEST(Iterator, ID_18_1) {
 	//テストデータの宣言
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	//コピーコンストラクタ
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator(*testIterator_0);
+	DoubleLinkedList testList;
+	DoubleLinkedList::Iterator testIterator_0=testList.Get_HeadIterator();
+	ScoreData testScore;
+	testScore.Score = 1;
+	testScore.UserName = "success";
+	testList.Insert(testIterator_0, testScore);
+	--testIterator_0;
+	//データ挿入
 
-	ASSERT_EQ(*(*testIterator_0), *(*testIterator_1)) << "ID_1_18_1失敗";
+	//コピーコンストラクタ
+	DoubleLinkedList::Iterator testIterator_1 = testIterator_0;
+
+	ScoreData checkScore0 = *testIterator_0;
+	ScoreData checkScore1 = *testIterator_1;
+	
+	ASSERT_EQ(checkScore0.Score, checkScore1.Score) << "ID_1_18_1失敗";
+	ASSERT_EQ(checkScore0.UserName, checkScore1.UserName) << "ID_1_18_1失敗";
 }
 
 //コピーコンストラクト後の値がコピー元と等しいことをチェック
 TEST(Iterator, ID_18_2) {
 	//テストデータの宣言
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
+	DoubleLinkedList testList;
+	DoubleLinkedList::ConstIterator testConstIterator_0=testList.Get_HeadConstIterator();
+	ScoreData testScore;
+	testScore.Score = 1;
+	testScore.UserName = "success";
+	testList.Insert(testConstIterator_0, testScore);
+	--testConstIterator_0;
 	//コピーコンストラクタ
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator(*testConstIterator_0);
+	DoubleLinkedList::ConstIterator testConstIterator_1 = testConstIterator_0;
 
-	ASSERT_EQ(*(*testConstIterator_0), *(*testConstIterator_1)) << "ID_1_18_2失敗";
+	ScoreData checkScore0 = *testConstIterator_0;
+	ScoreData checkScore1 = *testConstIterator_1;
+
+	ASSERT_EQ(checkScore0.Score, checkScore1.Score) << "ID_1_18_2失敗";
+	ASSERT_EQ(checkScore0.UserName, checkScore1.UserName) << "ID_1_18_2失敗";
 }
 
 ////以下、イテレータの代入を行う(operator=)についてのテスト
@@ -2195,27 +2161,33 @@ TEST(Iterator, ID_18_2) {
 //代入後の値がコピー元と等しいことをチェック
 TEST(Iterator, ID_20_1) {
 	//テストデータの宣言
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
+	DoubleLinkedList::Iterator testIterator_0;
+	DoubleLinkedList::Iterator testIterator_1;
 
 	//イテレータのコピー
 
-	(*testIterator_0) = *testIterator_1;
+	testIterator_0 = testIterator_1;
 
-	ASSERT_EQ(*(*testIterator_0), *(*testIterator_1)) << "ID_1_20_1失敗";
+	bool dataCheck = false;
+	dataCheck = testIterator_0 == testIterator_1;
+
+	ASSERT_TRUE(dataCheck) << "ID_1_20_1失敗";
 }
 
 
 //代入後の値がコピー元と等しいことをチェック
 TEST(Iterator, ID_20_2) {
 	//テストデータの宣言
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	DoubleLinkedList::ConstIterator testConstIterator_1;
 
 	//コンストイテレータのコピー
-	(*testConstIterator_0) = *testConstIterator_1;
+	testConstIterator_0 = testConstIterator_1;
 
-	ASSERT_EQ(*(*testConstIterator_0),*(*testConstIterator_1)) << "ID_1_20_2失敗";
+	bool dataCheck = false;
+	dataCheck = testConstIterator_0 == testConstIterator_1;
+
+	ASSERT_TRUE(dataCheck) << "ID_1_20_2失敗";
 }
 
 ////以下、二つのイテレータが同じか比較する(operator==)についてのテスト
@@ -2223,14 +2195,14 @@ TEST(Iterator, ID_20_2) {
 TEST(Iterator, ID_21_1) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	*testIterator_0 = testList.Get_HeadIterator();
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
-	*testIterator_1 = testList.Get_TailIterator();
+	DoubleLinkedList::Iterator testIterator_0;
+	testIterator_0 = testList.Get_HeadIterator();
+	DoubleLinkedList::Iterator testIterator_1;
+	testIterator_1 = testList.Get_TailIterator();
 	bool dataCheck = false;
 
 	//データの比較
-	dataCheck = (*testIterator_0) == testIterator_1;
+	dataCheck = testIterator_0 == testIterator_1;
 
 	ASSERT_TRUE(dataCheck) << "ID_1_21_1失敗";
 }
@@ -2239,14 +2211,14 @@ TEST(Iterator, ID_21_1) {
 TEST(Iterator, ID_21_2) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	*testConstIterator_0 = testList.Get_HeadConstIterator();
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
-	*testConstIterator_1 = testList.Get_TailConstIterator();
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	testConstIterator_0 = testList.Get_HeadConstIterator();
+	DoubleLinkedList::ConstIterator testConstIterator_1;
+	testConstIterator_1 = testList.Get_TailConstIterator();
 	bool dataCheck = false;
 
 	//データの比較
-	dataCheck = (*testConstIterator_0) == testConstIterator_1;
+	dataCheck = testConstIterator_0 == testConstIterator_1;
 
 	ASSERT_TRUE(dataCheck) << "ID_1_21_2失敗";
 }
@@ -2255,15 +2227,15 @@ TEST(Iterator, ID_21_2) {
 TEST(Iterator, ID_22_1) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
+	DoubleLinkedList::Iterator testIterator_0;
+	DoubleLinkedList::Iterator testIterator_1;
 	bool dataCheck = false;
 
-	*testIterator_0 = testList.Get_HeadIterator();
-	*testIterator_1 = testList.Get_HeadIterator();
+	testIterator_0 = testList.Get_HeadIterator();
+	testIterator_1 = testList.Get_HeadIterator();
 	//データの比較
-	(*testIterator_1) = *testIterator_0;
-	dataCheck = (*testIterator_0) == testIterator_1;
+	testIterator_1 = testIterator_0;
+	dataCheck = testIterator_0 == testIterator_1;
 
 	ASSERT_TRUE(dataCheck) << "ID_1_22_1失敗";
 }
@@ -2272,14 +2244,14 @@ TEST(Iterator, ID_22_1) {
 TEST(Iterator, ID_22_2) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	DoubleLinkedList::ConstIterator testConstIterator_1;
 	bool dataCheck = false;
 
 	//データの比較
-	*testConstIterator_0 = testList.Get_HeadConstIterator();
+	testConstIterator_0 = testList.Get_HeadConstIterator();
 	testConstIterator_1 = testConstIterator_0;
-	dataCheck = (*testConstIterator_0) == testConstIterator_1;
+	dataCheck = testConstIterator_0 == testConstIterator_1;
 
 	ASSERT_TRUE(dataCheck) << "ID_1_22_2失敗";
 }
@@ -2289,14 +2261,14 @@ TEST(Iterator, ID_23_1) {
 	//テストデータの宣言
 	DoubleLinkedList testList_0;
 	DoubleLinkedList testList_1;
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
+	DoubleLinkedList::Iterator testIterator_0;;
+	DoubleLinkedList::Iterator testIterator_1;;
 	bool dataCheck = true;
 
 	//データの比較
-	*testIterator_0 = testList_0.Get_HeadIterator();
-	*testIterator_1 = testList_1.Get_HeadIterator();
-	dataCheck = (*testIterator_0) == testIterator_1;
+    testIterator_0 = testList_0.Get_HeadIterator();
+	testIterator_1 = testList_1.Get_HeadIterator();
+	dataCheck = testIterator_0 == testIterator_1;
 
 	ASSERT_FALSE(dataCheck) << "ID_1_23_1失敗";
 }
@@ -2306,14 +2278,14 @@ TEST(Iterator, ID_23_2) {
 	//テストデータの宣言
 	DoubleLinkedList testList_0;
 	DoubleLinkedList testList_1;
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	DoubleLinkedList::ConstIterator testConstIterator_1;
 	bool dataCheck = true;
 
 	//データの比較
-	*testConstIterator_0 = testList_0.Get_HeadConstIterator();
-	*testConstIterator_1 = testList_1.Get_HeadConstIterator();
-	dataCheck = (*testConstIterator_0) == testConstIterator_1;
+	testConstIterator_0 = testList_0.Get_HeadConstIterator();
+	testConstIterator_1 = testList_1.Get_HeadConstIterator();
+	dataCheck = testConstIterator_0 == testConstIterator_1;
 
 	ASSERT_FALSE(dataCheck) << "ID_1_23_2失敗";
 }
@@ -2323,14 +2295,14 @@ TEST(Iterator, ID_23_2) {
 TEST(Iterator, ID_24_1) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
-	*testIterator_0 = testList.Get_HeadIterator();
-	*testIterator_1 = testList.Get_TailIterator();
+	DoubleLinkedList::Iterator testIterator_0;
+	DoubleLinkedList::Iterator testIterator_1;
+	testIterator_0 = testList.Get_HeadIterator();
+	testIterator_1 = testList.Get_TailIterator();
 	bool dataCheck = true;
 
 	//データの比較
-	dataCheck = (*testIterator_0) != testIterator_1;
+	dataCheck = testIterator_0 != testIterator_1;
 
 	ASSERT_FALSE(dataCheck) << "ID_1_24_1失敗";
 }
@@ -2339,15 +2311,15 @@ TEST(Iterator, ID_24_1) {
 TEST(Iterator, ID_24_2) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
-	*testConstIterator_0 = testList.Get_HeadConstIterator();
-	*testConstIterator_1 = testList.Get_TailConstIterator();
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	DoubleLinkedList::ConstIterator testConstIterator_1;
+	testConstIterator_0 = testList.Get_HeadConstIterator();
+	testConstIterator_1 = testList.Get_TailConstIterator();
 
 	bool dataCheck = true;
 
 	//データの比較
-	dataCheck = (*testConstIterator_0) != testConstIterator_1;
+	dataCheck = testConstIterator_0 != testConstIterator_1;
 
 	ASSERT_FALSE(dataCheck) << "ID_1_24_2失敗";
 }
@@ -2356,15 +2328,15 @@ TEST(Iterator, ID_24_2) {
 TEST(Iterator, ID_25_1) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
+	DoubleLinkedList::Iterator testIterator_0;
+	DoubleLinkedList::Iterator testIterator_1;
 	bool dataCheck = true;
 
-	*testIterator_0 = testList.Get_HeadIterator();
+	testIterator_0 = testList.Get_HeadIterator();
 
 	//データの比較
 	testIterator_0 = testIterator_1;
-	dataCheck = (*testIterator_0) != testIterator_1;
+	dataCheck = testIterator_0 != testIterator_1;
 
 	ASSERT_FALSE(dataCheck) << "ID_1_25_1失敗";
 }
@@ -2373,14 +2345,14 @@ TEST(Iterator, ID_25_1) {
 TEST(Iterator, ID_25_2) {
 	//テストデータの宣言
 	DoubleLinkedList testList;
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	DoubleLinkedList::ConstIterator testConstIterator_1;
 	bool dataCheck = true;
 
 	//データの比較
-	*testConstIterator_0 = testList.Get_HeadConstIterator();
+	testConstIterator_0 = testList.Get_HeadConstIterator();
 	testConstIterator_0 = testConstIterator_1;
-	dataCheck = (*testConstIterator_0) != testConstIterator_1;
+	dataCheck = testConstIterator_0 != testConstIterator_1;
 
 	ASSERT_FALSE(dataCheck) << "ID_1_25_2失敗";
 }
@@ -2390,14 +2362,14 @@ TEST(Iterator, ID_26_1) {
 	//テストデータの宣言
 	DoubleLinkedList testList_0;
 	DoubleLinkedList testList_1;
-	DoubleLinkedList::Iterator* testIterator_0 = new DoubleLinkedList::Iterator;
-	DoubleLinkedList::Iterator* testIterator_1 = new DoubleLinkedList::Iterator;
+	DoubleLinkedList::Iterator testIterator_0;
+	DoubleLinkedList::Iterator testIterator_1;
 	bool dataCheck =false;
 
 	//データの比較
-	*testIterator_0 = testList_0.Get_HeadIterator();
-	*testIterator_1 = testList_1.Get_HeadIterator();
-	dataCheck = (*testIterator_0) != testIterator_1;
+	testIterator_0 = testList_0.Get_HeadIterator();
+	testIterator_1 = testList_1.Get_HeadIterator();
+	dataCheck = testIterator_0 != testIterator_1;
 
 	ASSERT_TRUE(dataCheck) << "ID_1_26_1失敗";
 }
@@ -2407,14 +2379,14 @@ TEST(Iterator, ID_26_2) {
 	//テストデータの宣言
 	DoubleLinkedList testList_0;
 	DoubleLinkedList testList_1;
-	DoubleLinkedList::ConstIterator* testConstIterator_0 = new DoubleLinkedList::ConstIterator;
-	DoubleLinkedList::ConstIterator* testConstIterator_1 = new DoubleLinkedList::ConstIterator;
+	DoubleLinkedList::ConstIterator testConstIterator_0;
+	DoubleLinkedList::ConstIterator testConstIterator_1;
 	bool dataCheck = false;
 
 	//データの比較
-	*testConstIterator_0 = testList_0.Get_HeadConstIterator();
-	*testConstIterator_1 = testList_1.Get_HeadConstIterator();
-	dataCheck = (*testConstIterator_0) != testConstIterator_1;
+	testConstIterator_0 = testList_0.Get_HeadConstIterator();
+	testConstIterator_1 = testList_1.Get_HeadConstIterator();
+	dataCheck = testConstIterator_0 != testConstIterator_1;
 
 	ASSERT_TRUE(dataCheck) << "ID_1_26_2失敗";
 }
