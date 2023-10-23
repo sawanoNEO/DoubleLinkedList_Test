@@ -45,22 +45,23 @@ int main(void)
 		//成績データをリストに格納
 		ScoreLine.Score = num;
 		ScoreLine.UserName = name;
-		ScoreList.Push_Back(Itr, ScoreLine);
+		ScoreList.Insert(Itr, ScoreLine);
 
 		--Itr;
 	}
 	Itr = ScoreList.Get_TailIterator();
 
 	//格納したデータを表示させる
-	ScoreData* displayScore = *Itr;
-	ScoreData* headScore = *ScoreList.Get_HeadIterator();
+	ScoreData displayScore = *Itr; //表示させるデータ
+	ScoreData headScore = *ScoreList.Get_HeadIterator();//繰り返し処理の判定用
 
 	//データの表示(格納順)
-	while (displayScore != headScore)//先頭まで繰り返す
+	while (displayScore.Score != headScore.Score&&
+		   displayScore.UserName!=headScore.UserName)//先頭まで繰り返す
 	{
-		--Itr;
+		--Itr;//一つ前のデータを格納する
 		displayScore = *Itr;
-		cout << displayScore->Score << displayScore->UserName << endl;
+		cout << displayScore.Score << displayScore.UserName << endl;
 	}
 
 	cin.get();

@@ -1,38 +1,35 @@
 #include "DoubleLinkedList.h"
+#include <assert.h>
 #include "pch.h"
 
 DoubleLinkedList::DoubleLinkedList()
 {
 	//各変数を生成する
-	m_Node = new DoubleLinkedList::Node;
-
 	m_HeadNode = new DoubleLinkedList::Node;
 	m_HeadNode->next = new DoubleLinkedList::Node;
 	m_HeadNode->prev = new DoubleLinkedList::Node;
 	m_TailNode = new DoubleLinkedList::Node;
 
-	m_Node->prev = new DoubleLinkedList::Node;
-	m_Node->prev->next = m_Node;
+	m_HeadNode->prev = new DoubleLinkedList::Node;
+	m_HeadNode->prev->next = m_HeadNode;
 	
 	//各ノードの初期化
-	m_HeadNode = m_Node;
-	m_HeadNode->prev = m_Node->prev;
-	m_TailNode = m_Node;
+	m_TailNode = m_HeadNode;
 
 	data_Count = 0;
 }
 
 DoubleLinkedList::~DoubleLinkedList()
 {
-	m_Node = m_TailNode;
+	DoubleLinkedList::Node* tempNode = m_TailNode;
 
 	//末尾要素から順番に削除
-	while (m_Node != m_HeadNode)
+	while (tempNode != m_HeadNode)
 	{
-		m_Node = m_Node->prev;
-		delete m_Node->next;
+		tempNode = tempNode->prev;
+		delete tempNode->next;
 	}
-	delete m_Node;
+	delete tempNode;
 }
 
 int DoubleLinkedList::Count()const//データ個数を返す
@@ -40,7 +37,7 @@ int DoubleLinkedList::Count()const//データ個数を返す
 	return data_Count;
 }
 
-bool DoubleLinkedList::Push_Back(DoubleLinkedList::ConstIterator& _iterator,ScoreData _scoredata)
+bool DoubleLinkedList::Insert(DoubleLinkedList::ConstIterator& _iterator,ScoreData _scoredata)
 {
 	if (!_iterator.mp_Node)
 	{
@@ -48,7 +45,7 @@ bool DoubleLinkedList::Push_Back(DoubleLinkedList::ConstIterator& _iterator,Scor
 	}
 	//挿入用ノード生成
 	DoubleLinkedList::Node* insertNode = new DoubleLinkedList::Node;
-	*insertNode->scoredata = _scoredata;
+	insertNode->scoredata = _scoredata;
 
 	insertNode->prev = _iterator.mp_Node->prev;
 	insertNode->next = _iterator.mp_Node;
@@ -71,8 +68,8 @@ bool DoubleLinkedList::Delete(ConstIterator& _iterator)
 
 	//イテレータの参照がnullまたはダミーだった場合、処理を抜ける
 	if (!_iterator.mp_Node||
-		(_iterator.mp_Node->scoredata->Score==tempScore.Score&&
-		 _iterator.mp_Node->scoredata->UserName==tempScore.UserName))
+		(_iterator.mp_Node->scoredata.Score==tempScore.Score&&
+		 _iterator.mp_Node->scoredata.UserName==tempScore.UserName))
 	{
 		return false;
 	}
@@ -129,13 +126,11 @@ DoubleLinkedList::Iterator::Iterator(Node * _node)
 	mp_Node = _node;
 }
 
-ScoreData* DoubleLinkedList::Iterator::operator*()//イテレータの指す要素を取得(非const)
+ScoreData DoubleLinkedList::Iterator::operator*()//イテレータの指す要素を取得(非const)
 {
-	if (mp_Node != nullptr)
-	{
-		return mp_Node->scoredata;
-	}
-	return nullptr;
+	assert(mp_Node);
+	assert(mp_Node->scoredata.UserName != "dummy"||mp_Node->prev->scoredata.UserName!="dummy");
+	return mp_Node->scoredata;
 }
 
 DoubleLinkedList::ConstIterator::ConstIterator()//コンストラクタ
@@ -152,17 +147,18 @@ DoubleLinkedList::ConstIterator::~ConstIterator()//デストラクタ
 {
 }
 
-DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator--()//先頭に向かって進める(前置)
+DoubleLinkedList::ConstIterator DoubleLinkedList::ConstIterator::operator--()//先頭に向かって進める(前置)
 {
-	if (mp_Node)
+	assert(mp_Node);
+	assert(mp_Node->prev->scoredata.UserName != "dummy");
+	if (mp_Node->prev)
 	{
-		if (mp_Node->prev)
-			mp_Node = mp_Node->prev;
+		mp_Node = mp_Node->prev;
 	}
 	return *this;
 }
 
-DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator--(int)//先頭に向かって進める(後置)
+DoubleLinkedList::ConstIterator DoubleLinkedList::ConstIterator::operator--(int)//先頭に向かって進める(後置)
 {
 	DoubleLinkedList::ConstIterator temp;
 	temp = *this;
@@ -170,17 +166,17 @@ DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator--(int
 	return temp;
 }
 
-DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator++()//末尾に向かって進める(前置)
+DoubleLinkedList::ConstIterator DoubleLinkedList::ConstIterator::operator++()//末尾に向かって進める(前置)
 {
-	if (mp_Node)
+	assert(mp_Node);
+	if (mp_Node->next)
 	{
-		if (mp_Node->next)
-			mp_Node = mp_Node->next;
+		mp_Node = mp_Node->next;
 	}
 	return *this;
 }
 
-DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator++(int)//末尾に向かって進める(後置)
+DoubleLinkedList::ConstIterator DoubleLinkedList::ConstIterator::operator++(int)//末尾に向かって進める(後置)
 {
 	DoubleLinkedList::ConstIterator temp;
 	temp = *this;
@@ -188,16 +184,14 @@ DoubleLinkedList::ConstIterator& DoubleLinkedList::ConstIterator::operator++(int
 	return temp;
 }
 
-const ScoreData* DoubleLinkedList::ConstIterator::operator*()const//イテレータの指す要素を取得(const)
+const ScoreData DoubleLinkedList::ConstIterator::operator*()const//イテレータの指す要素を取得(const)
 {
-	if (mp_Node)
-	{
-		return mp_Node->scoredata;
-	}
-	return nullptr;
+	assert(mp_Node);
+	assert(mp_Node->scoredata.UserName != "dummy" || mp_Node->prev->scoredata.UserName != "dummy");
+	return mp_Node->scoredata;
 }
 
-DoubleLinkedList::ConstIterator::ConstIterator(const ConstIterator & constiterator)//コピーコンストラクタ
+DoubleLinkedList::ConstIterator::ConstIterator(const ConstIterator& constiterator)//コピーコンストラクタ
 {
 	this->mp_Node = constiterator.mp_Node;
 }
@@ -208,18 +202,18 @@ DoubleLinkedList::ConstIterator DoubleLinkedList::ConstIterator::operator=(const
 	return *this;
 }
 
-bool DoubleLinkedList::ConstIterator::operator==(const ConstIterator* _constiterator)//イテレータが同じか比較する
+bool DoubleLinkedList::ConstIterator::operator==(const ConstIterator _constiterator)//イテレータが同じか比較する
 {
-	if (mp_Node == _constiterator->mp_Node)
+	if (mp_Node == _constiterator.mp_Node)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool DoubleLinkedList::ConstIterator::operator!=(const ConstIterator* _constiterator)//イテレータが異なるか比較する
+bool DoubleLinkedList::ConstIterator::operator!=(const ConstIterator _constiterator)//イテレータが異なるか比較する
 {
-	if (mp_Node != _constiterator->mp_Node)
+	if (mp_Node != _constiterator.mp_Node)
 	{
 		return true;
 	}
